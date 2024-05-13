@@ -1,11 +1,13 @@
 package com.thanhquang.sourcebase.entities;
 
-import com.thanhquang.sourcebase.entities.base.BaseEntity;
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+
+import jakarta.persistence.*;
+
+import com.thanhquang.sourcebase.entities.base.BaseEntity;
+
+import lombok.*;
 
 @Entity
 @Getter

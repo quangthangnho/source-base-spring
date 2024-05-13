@@ -1,34 +1,34 @@
 package com.thanhquang.sourcebase.utils;
 
-import com.thanhquang.sourcebase.constant.CommonConstant;
-import com.thanhquang.sourcebase.dto.JwtDto;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
+import static com.thanhquang.sourcebase.constant.CommonConstant.*;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.thanhquang.sourcebase.constant.CommonConstant.*;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.StringUtils;
+
+import com.thanhquang.sourcebase.constant.CommonConstant;
+import com.thanhquang.sourcebase.dto.JwtDto;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtUtils {
 
-    private JwtUtils() {
+    private JwtUtils() {}
 
-    }
-    private static final JwtParser JWT_PARSER = Jwts.parser()
-            .verifyWith(CommonConstant.SECRET_KEY)
-            .build();
+    private static final JwtParser JWT_PARSER =
+            Jwts.parser().verifyWith(CommonConstant.SECRET_KEY).build();
 
     public static JwtDto generateToken(String email, boolean isAccessToken) {
         OffsetDateTime nowOffsetDateTime = OffsetDateTime.now(ZoneOffset.UTC);
@@ -46,10 +46,7 @@ public class JwtUtils {
                 .expiration(Date.from(expirationInstant.toInstant()))
                 .signWith(CommonConstant.SECRET_KEY)
                 .compact();
-        return JwtDto.builder()
-                .token(token)
-                .expiredAt(expirationInstant)
-                .build();
+        return JwtDto.builder().token(token).expiredAt(expirationInstant).build();
     }
 
     private static Optional<Claims> parseJwtToken(String jwtToken) {
@@ -64,12 +61,14 @@ public class JwtUtils {
 
     public static boolean validateToken(String jwtToken) {
         Optional<Claims> claimJwts = parseJwtToken(jwtToken);
-        return claimJwts.map(claims -> claims.getExpiration().after(Date.from(OffsetDateTime.now().toInstant()))).orElse(false);
+        return claimJwts
+                .map(claims -> claims.getExpiration()
+                        .after(Date.from(OffsetDateTime.now().toInstant())))
+                .orElse(false);
     }
 
     public static Optional<String> getEmailFromToken(String jwtToken) {
-        return parseJwtToken(jwtToken)
-                .map(Claims::getSubject);
+        return parseJwtToken(jwtToken).map(Claims::getSubject);
     }
 
     public static Optional<String> getTokenFromRequest(HttpServletRequest request) {

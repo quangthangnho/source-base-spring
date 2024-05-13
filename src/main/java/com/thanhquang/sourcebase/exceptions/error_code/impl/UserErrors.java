@@ -1,11 +1,11 @@
 package com.thanhquang.sourcebase.exceptions.error_code.impl;
 
 import com.thanhquang.sourcebase.exceptions.error_code.ErrorCode;
+
 import lombok.Getter;
 
 @Getter
 public enum UserErrors implements ErrorCode {
-
     EMAIL_EXISTS("User-001", "User with this email already exists"),
     PHONE_EXISTS("User-002", "User with this phone already exists"),
     USER_DEACTIVATED("User-003", "User is deactivated"),

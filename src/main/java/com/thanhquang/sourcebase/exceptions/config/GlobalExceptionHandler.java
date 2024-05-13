@@ -1,8 +1,10 @@
 package com.thanhquang.sourcebase.exceptions.config;
 
-import com.thanhquang.sourcebase.dto.response.common.ApiErrorResponse;
-import com.thanhquang.sourcebase.exceptions.BadRequestException;
-import lombok.extern.slf4j.Slf4j;
+import static com.thanhquang.sourcebase.exceptions.error_code.impl.CommonErrors.REQUEST_VALIDATION_FAIL;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.thanhquang.sourcebase.dto.response.common.ApiErrorResponse;
+import com.thanhquang.sourcebase.exceptions.BadRequestException;
 
-import static com.thanhquang.sourcebase.exceptions.error_code.impl.CommonErrors.REQUEST_VALIDATION_FAIL;
+import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 @Slf4j
@@ -51,7 +53,6 @@ public class GlobalExceptionHandler {
     public ApiErrorResponse<String> handleBadRequestException(BadRequestException ex) {
         return ApiErrorResponse.fail(ex.getErrorCode().code(), ex.getErrorCode().message());
     }
-
 
     private ApiErrorResponse<Map<String, String>> getMapApiErrorResponse(BindException ex) {
         Map<String, String> errors = new HashMap<>();

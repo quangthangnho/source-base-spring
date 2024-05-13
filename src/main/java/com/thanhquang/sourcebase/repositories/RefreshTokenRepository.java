@@ -1,14 +1,16 @@
 package com.thanhquang.sourcebase.repositories;
 
-import com.thanhquang.sourcebase.entities.RefreshTokenEntity;
-import com.thanhquang.sourcebase.entities.UserEntity;
+import java.util.Optional;
+
 import jakarta.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.thanhquang.sourcebase.entities.RefreshTokenEntity;
+import com.thanhquang.sourcebase.entities.UserEntity;
 
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Long> {

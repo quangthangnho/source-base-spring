@@ -1,6 +1,7 @@
 package com.thanhquang.sourcebase.dto.response.auth;
 
 import com.thanhquang.sourcebase.constant.CommonConstant;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

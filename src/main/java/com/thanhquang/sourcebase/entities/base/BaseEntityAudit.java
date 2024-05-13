@@ -1,18 +1,20 @@
 package com.thanhquang.sourcebase.entities.base;
 
-import com.thanhquang.sourcebase.constant.CommonConstant;
-import com.thanhquang.sourcebase.services.impl.user_detail.UserDetailsImpl;
-import com.thanhquang.sourcebase.utils.CommonUtils;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+
+import com.thanhquang.sourcebase.constant.CommonConstant;
+import com.thanhquang.sourcebase.services.impl.user_detail.UserDetailsImpl;
+import com.thanhquang.sourcebase.utils.CommonUtils;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 @Getter
 @Setter
@@ -51,9 +53,7 @@ public abstract class BaseEntityAudit extends BaseEntity implements Serializable
     }
 
     private String getEmailFromPrincipal() {
-        return CommonUtils.getPrincipal()
-                .map(UserDetailsImpl::getUsername)
-                .orElse(CommonConstant.DEFAULT_EMAIL);
+        return CommonUtils.getPrincipal().map(UserDetailsImpl::getUsername).orElse(CommonConstant.DEFAULT_EMAIL);
     }
 
     private void setCreatedAtAndCreatedBy(String email) {

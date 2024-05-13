@@ -1,11 +1,11 @@
 package com.thanhquang.sourcebase.exceptions.error_code.impl;
 
 import com.thanhquang.sourcebase.exceptions.error_code.ErrorCode;
+
 import lombok.Getter;
 
 @Getter
 public enum CommonErrors implements ErrorCode {
-
     REQUEST_VALIDATION_FAIL("Common-001", "Request validation failed"),
     ;
 

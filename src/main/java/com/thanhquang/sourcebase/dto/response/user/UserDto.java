@@ -1,14 +1,14 @@
 package com.thanhquang.sourcebase.dto.response.user;
 
+import java.time.OffsetDateTime;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.thanhquang.sourcebase.enums.user.Roles;
 import com.thanhquang.sourcebase.enums.user.UserStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter

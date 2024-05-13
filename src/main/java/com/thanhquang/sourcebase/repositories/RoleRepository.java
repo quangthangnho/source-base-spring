@@ -1,10 +1,11 @@
 package com.thanhquang.sourcebase.repositories;
 
-import com.thanhquang.sourcebase.entities.RoleEntity;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.thanhquang.sourcebase.entities.RoleEntity;
 
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {

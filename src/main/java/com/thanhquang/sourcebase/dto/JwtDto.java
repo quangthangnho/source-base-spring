@@ -1,10 +1,10 @@
 package com.thanhquang.sourcebase.dto;
 
+import java.time.OffsetDateTime;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter

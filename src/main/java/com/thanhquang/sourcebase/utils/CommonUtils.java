@@ -1,10 +1,11 @@
 package com.thanhquang.sourcebase.utils;
 
-import com.thanhquang.sourcebase.services.impl.user_detail.UserDetailsImpl;
+import java.util.Optional;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Optional;
+import com.thanhquang.sourcebase.services.impl.user_detail.UserDetailsImpl;
 
 public class CommonUtils {
 

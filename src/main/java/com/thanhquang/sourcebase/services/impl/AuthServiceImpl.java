@@ -1,5 +1,13 @@
 package com.thanhquang.sourcebase.services.impl;
 
+import java.util.Set;
+
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.thanhquang.sourcebase.dto.request.auth.LoginDto;
 import com.thanhquang.sourcebase.dto.request.auth.RegisterDto;
 import com.thanhquang.sourcebase.dto.response.auth.JwtResDto;
@@ -19,13 +27,6 @@ import com.thanhquang.sourcebase.services.RefreshTokenService;
 import com.thanhquang.sourcebase.services.RoleService;
 import com.thanhquang.sourcebase.services.UserService;
 import com.thanhquang.sourcebase.utils.JwtUtils;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -37,7 +38,12 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
 
-    public AuthServiceImpl(RoleService roleService, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, RefreshTokenService refreshTokenService, UserService userService) {
+    public AuthServiceImpl(
+            RoleService roleService,
+            PasswordEncoder passwordEncoder,
+            AuthenticationProvider authenticationProvider,
+            RefreshTokenService refreshTokenService,
+            UserService userService) {
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
@@ -58,10 +64,8 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setStatus(UserStatus.ACTIVE);
 
-        UserRoleEntity userRole = UserRoleEntity.builder()
-                .user(user)
-                .role(getDefaultRole())
-                .build();
+        UserRoleEntity userRole =
+                UserRoleEntity.builder().user(user).role(getDefaultRole()).build();
         user.setUserRoles(Set.of(userRole));
         return UserMapper.INSTANCE.toUserDto(userService.save(user));
     }
@@ -69,7 +73,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResDto login(LoginDto loginDto) throws BadRequestException {
         try {
-            authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+            authenticationProvider.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
         } catch (Exception e) {
             throw new BadRequestException(AuthenticationErrors.EMAIL_OR_PASSWORD_INVALID);
         }
@@ -85,9 +90,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResDto refreshToken(String refreshToken) throws BadRequestException {
         refreshTokenService.verifyRefreshTokenExpiration(refreshToken);
-        String accessToken = JwtUtils.generateToken(JwtUtils.getEmailFromToken(refreshToken).orElseThrow(
-                () -> new BadRequestException(AuthenticationErrors.TOKEN_INVALID)
-        ), true).getToken();
+        String accessToken = JwtUtils.generateToken(
+                        JwtUtils.getEmailFromToken(refreshToken)
+                                .orElseThrow(() -> new BadRequestException(AuthenticationErrors.TOKEN_INVALID)),
+                        true)
+                .getToken();
         return new JwtResDto(accessToken, refreshToken);
     }
 

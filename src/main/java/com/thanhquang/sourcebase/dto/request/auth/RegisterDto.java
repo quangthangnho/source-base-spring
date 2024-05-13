@@ -1,13 +1,15 @@
 package com.thanhquang.sourcebase.dto.request.auth;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -30,6 +32,4 @@ public class RegisterDto implements Serializable {
     @NotEmpty(message = "Phone number is required")
     @Schema(description = "Phone number", example = "0123456789", name = "phoneNumber", type = "string")
     private String phoneNumber;
-
-
 }

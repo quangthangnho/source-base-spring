@@ -1,5 +1,7 @@
 package com.thanhquang.sourcebase.services.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.thanhquang.sourcebase.dto.JwtDto;
 import com.thanhquang.sourcebase.entities.RefreshTokenEntity;
 import com.thanhquang.sourcebase.entities.UserEntity;
@@ -9,7 +11,6 @@ import com.thanhquang.sourcebase.repositories.RefreshTokenRepository;
 import com.thanhquang.sourcebase.services.RefreshTokenService;
 import com.thanhquang.sourcebase.services.UserService;
 import com.thanhquang.sourcebase.utils.JwtUtils;
-import org.springframework.stereotype.Service;
 
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {
@@ -37,9 +38,9 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public void verifyRefreshTokenExpiration(String refreshToken) throws BadRequestException {
-        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findByToken(refreshToken).orElseThrow(
-                () -> new BadRequestException(AuthenticationErrors.REFRESH_TOKEN_NOT_FOUND)
-        );
+        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository
+                .findByToken(refreshToken)
+                .orElseThrow(() -> new BadRequestException(AuthenticationErrors.REFRESH_TOKEN_NOT_FOUND));
         if (!JwtUtils.validateToken(refreshTokenEntity.getToken())) {
             refreshTokenRepository.delete(refreshTokenEntity);
             throw new BadRequestException(AuthenticationErrors.REFRESH_TOKEN_EXPIRED);

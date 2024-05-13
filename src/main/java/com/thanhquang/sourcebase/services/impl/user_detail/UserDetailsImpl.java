@@ -1,14 +1,15 @@
 package com.thanhquang.sourcebase.services.impl.user_detail;
 
-import com.thanhquang.sourcebase.entities.UserEntity;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import com.thanhquang.sourcebase.entities.UserEntity;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

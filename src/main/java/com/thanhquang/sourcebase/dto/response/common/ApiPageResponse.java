@@ -1,6 +1,7 @@
 package com.thanhquang.sourcebase.dto.response.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ public class ApiPageResponse<T> extends ApiResponse<T> {
     private long totalElements;
     private int totalPages;
 
-    private final static int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_VALUE = 0;
 
     public ApiPageResponse(T data) {
         super(data);

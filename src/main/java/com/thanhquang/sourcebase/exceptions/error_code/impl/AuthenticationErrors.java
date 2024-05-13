@@ -1,11 +1,11 @@
 package com.thanhquang.sourcebase.exceptions.error_code.impl;
 
 import com.thanhquang.sourcebase.exceptions.error_code.ErrorCode;
+
 import lombok.Getter;
 
 @Getter
 public enum AuthenticationErrors implements ErrorCode {
-
     USER_NOT_FOUND("Auth-001", "User not found"),
     DEFAULT_ROLE_NOT_FOUND("Auth-002", "Default role not found"),
     REFRESH_TOKEN_NOT_FOUND("Auth-003", "Refresh token not found"),
