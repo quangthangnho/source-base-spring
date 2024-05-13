@@ -9,10 +9,12 @@ import com.thanhquang.sourcebase.services.impl.user_detail.UserDetailsImpl;
 
 public class CommonUtils {
 
+    private CommonUtils() {}
+
     public static Optional<UserDetailsImpl> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
-            return Optional.of((UserDetailsImpl) authentication.getPrincipal());
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl userdetailsimpl) {
+            return Optional.of(userdetailsimpl);
         }
         return Optional.empty();
     }

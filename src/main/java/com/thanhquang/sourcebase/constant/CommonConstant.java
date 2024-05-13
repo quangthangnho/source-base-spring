@@ -6,6 +6,8 @@ import io.jsonwebtoken.Jwts;
 
 public class CommonConstant {
 
+    private CommonConstant() {}
+
     public static final String DEFAULT_EMAIL = "Anonymous";
     public static final String DEFAULT_BEARER = "Bearer ";
 
